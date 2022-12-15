@@ -4,6 +4,7 @@
 #define N 9
 #define true 1
 #define false 0
+
 void draw_table(int board[N][N]) {
 	printf("- - - - - - -\n");
 	for (int i = 0; i < 9; i++) {
@@ -141,53 +142,59 @@ void write_to_file(int board[N][N]) {
 	fclose(file);
 	printf("Solved table was copied to results.txt\n");
 }
-void main() {
-	int board[N][N] = {
-		{0,0,7,4,9,1,6,0,5},
-		{2,0,0,0,6,0,3,0,9},
-		{0,0,0,0,0,7,0,1,0},
-		{0,5,8,6,0,0,0,0,4},
-		{0,0,3,0,0,0,0,9,0},
-		{0,0,6,2,0,0,1,8,7},
-		{9,0,4,0,7,0,0,0,2},
-		{6,7,0,8,3,0,0,0,0},
-		{8,1,0,0,4,5,0,0,0} 
-	};
-	
-	/*int board[N][N];
-	memset(board, 0, sizeof(board));
+void create_table(int board[N][N]) {
 	int istrue = false;
 	int go_on;
 	while (istrue != true) {
+		draw_table(board);
 		insert_to_table(board);
 		printf("Do you want to enter another value?\n");
 		printf("1.Yes\n");
 		printf("2.No\n");
-		scanf_s("%d", &go_on);
+		scanf("%d", &go_on);
+		system("cls");
 		if (go_on == 2) {
 			istrue = true;
 		}
-	}*/
-	/*/int istrue = false;
-	int go_on;
-	while (istrue != true) {
-		insert_to_table(board);
-		printf("Do you want to enter another value?\n");
-		printf("1.Yes\n");
-		printf("2.No\n");
-		scanf_s("%d", &go_on);
-		if (go_on == 2) {
-			istrue = true;
-		}
-	}*/
+	}
+}
+void solve_board_loop() {
+	int board[N][N];
+	memset(board, 0, sizeof(board));
+	system("cls");
+	create_table(board);
+	system("cls");
+	printf("Board you asked to solve");
 	draw_table(board);
-	printf("\n\n\n");
 	if (solve_board(board)) {
 		printf("Board has been solved\n");
 		draw_table(board);
 		write_to_file(board);
 	}
-	else{
+	else {
 		printf("Board is not solvable\n");
 	}
+}
+void game_loop() {
+	int number = 0;
+	while (number != 3) {
+		printf("Enter a number to:\n");
+		printf("1.Make a puzzle for computer to solve\n");
+		printf("2.Solve a puzzle yourself\n");
+		printf("3.Exit\n");
+		scanf("%d", &number);
+		if (number < 1 || number>3) {
+			printf("You entered wrong number please try again.");
+		}
+		else if (number==1) {
+			solve_board_loop();
+		}
+		else if (number == 2) {
+
+		}
+	}
+}
+void main() {
+	printf("Sudoku in c\n");
+	game_loop();
 }
