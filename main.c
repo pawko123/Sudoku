@@ -59,24 +59,20 @@ void insert_to_table(int board[N][N]) {
 	asign_value(board, value, row-1, column-1);
 }
 int isviablerow(int board[N][N],int value,int row) {
-	int boolean = true;
 	for (int i = 0; i < N; i++) {
 		if (board[row][i] == value) {
-			boolean = false;
-			break;
+			return false;
 		}
 	}
-	return boolean;
+	return true;
 }
 int isviablecolumn(int board[N][N], int value, int column) {
-	int boolean = true;
 	for (int i = 0; i < N; i++) {
 		if (board[i][column] == value) {
-			boolean=false;
-			break;
+			return false;
 		}
 	}
-	return boolean;
+	return true;
 }
 int isviablebox(int board[N][N], int value, int row, int column) {
 	int localrow = row - row % 3;
@@ -91,11 +87,10 @@ int isviablebox(int board[N][N], int value, int row, int column) {
 	return true;
 }
 int isviable(int board[N][N],int value,int column,int row) {
-	int boolean = false;
 	if (isviablerow(board, value, row) && isviablecolumn(board, value, column)&& isviablebox(board, value, row, column)) {
-		boolean=true;
+		return true;
 	}
-	return boolean;
+	return false;
 }
 int solve_board(int board[N][N]) {
 	for (int row = 0; row < 9; row++) {
@@ -164,7 +159,7 @@ void solve_board_loop() {
 	system("cls");
 	create_table(board);
 	system("cls");
-	printf("Board you asked to solve");
+	printf("Board you asked to solve\n");
 	draw_table(board);
 	if (solve_board(board)) {
 		printf("Board has been solved\n");
@@ -175,7 +170,7 @@ void solve_board_loop() {
 		printf("Board is not solvable\n");
 	}
 }
-void game_loop() {
+void program_loop() {
 	int number = 0;
 	while (number != 3) {
 		printf("Enter a number to:\n");
@@ -196,5 +191,5 @@ void game_loop() {
 }
 void main() {
 	printf("Sudoku in c\n");
-	game_loop();
+	program_loop();
 }
